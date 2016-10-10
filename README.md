@@ -1,3 +1,3 @@
-# nQueens
+# Algorithm Problems
 
-DFS implementation of the n queens problem for n = 8.
+A potpourri of algorithm problems.
