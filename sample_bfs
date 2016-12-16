@@ -1,0 +1,58 @@
+// For this problem: https://www.hackerrank.com/challenges/bfsshortreach
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int q = sc.nextInt();
+        for(int ra = 0; ra < q; ra++){
+            
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int[][] adj = new int[m][2];
+            for(int j = 0; j < m; j++){
+                adj[j][0] = sc.nextInt()-1;
+                adj[j][1] = sc.nextInt()-1;
+            }
+            int s = sc.nextInt()-1;
+            int[] dis = new int[n];
+            for(int i = 0; i < n; i++){dis[i] = -1;}
+            dis[s] = 0;
+            int lay = -1;
+            ArrayList<Integer> start = new ArrayList<Integer>();
+            start.add(s);
+            //System.out.println(Arrays.toString(dis));
+            while(start.size() != 0){
+                lay++;
+                start = bfs(adj, dis, start, lay);             
+            }
+            
+            for(int i = 0; i < n; i++){
+                if(dis[i] > 0){System.out.print(6*dis[i] + " ");}
+                if(dis[i] < 0){System.out.print(dis[i] + " ");}
+            }
+            System.out.println();
+    }
+    }
+        
+        public static ArrayList<Integer> bfs(int[][] adj, int[] dis, ArrayList<Integer> search, int layer){
+            ArrayList<Integer> next = new ArrayList<Integer>();
+            for(int i: search){
+                for(int[] edge : adj){
+                    if(edge[0] == i){
+                        if(dis[edge[1]] == -1){dis[edge[1]] = layer +1; next.add(edge[1]);}
+                    }
+                    if(edge[1] == i){
+                        if(dis[edge[0]] == -1){dis[edge[0]] = layer +1; next.add(edge[0]);}
+                    }                    
+                }  
+                //System.out.println(Arrays.toString(dis));
+            }
+            //layer++;
+            return next;
+        }
+}
